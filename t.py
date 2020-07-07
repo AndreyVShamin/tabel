@@ -23,6 +23,7 @@ thin = Side(border_style="thin", color="000000")
 newEmployee(1)
 newEmployee(2)
 newEmployee(3)
+newEmployee(4)
 
     
 wb.save('c:/Temp/Табель.xlsx')
