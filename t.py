@@ -28,23 +28,40 @@ def newEmployee(n):
         sheet.merge_cells(start_row=firstRow, start_column=col, end_row=firstRow + 1, end_column=col)
         
     sheet.merge_cells(start_row=firstRow, start_column=45, end_row=firstRow + 1, end_column=45)
-    sheet.cell( column = 19, row = firstRow, value = "=SUM(RC[-15]:RC[-1]")
+    #sheet.cell( column = 19, row = firstRow, value = "=SUM(RC[-15]:RC[-1]")
     #sheet.cell( column = 36, row = firstRow, value = "=SUM(RC[-15]:RC[-1]")
     
     
     for col in range (1, 46):
         sheet.cell(row=firstRow, column=col).border = Border (top=thin, left=thin, right=thin, bottom=thin)
         sheet.cell(row=firstRow + 1, column=col).border = Border (top=thin, left=thin, right=thin, bottom=thin)
-        
+
+    days = 0
+    hoursFull = 0
     for day in range (1, 15+1):
         col = day + 3
         dayOfWeek = calendar.weekday(year, month, day)
-        sheet.cell( column = col, row = firstRow, value = 'в' if dayOfWeek == 5 or dayOfWeek == 6 else 8 )
+        if dayOfWeek == 5 or dayOfWeek == 6:
+            val = 'в'
+        else:
+            days += 1
+            hoursFull += 8
+        sheet.cell( column = 19, row = firstRow, value = hoursFull )
         
+    hoursHalf = 0
     for day in range (16, calendar.monthrange(year, month)[1]+1):
         col = day + 4
         dayOfWeek = calendar.weekday(year, month, day)
-        sheet.cell( column = col, row = firstRow, value = 'в' if dayOfWeek == 5 or dayOfWeek == 6 else 8 )
+        if dayOfWeek == 5 or dayOfWeek == 6:
+            val = 'в'
+        else:
+            days += 1
+            hoursFull += 8
+            hoursHalf += 8
+        sheet.cell( column = 36, row = firstRow, value = hoursHalf )
+        
+    sheet.cell( column = 37, row = firstRow, value = days )
+    sheet.cell( column = 38, row = firstRow, value = hoursFull )
         
         
 
